@@ -1,5 +1,6 @@
 const myLibrary = [];
 const form = document.forms[0];
+const table = document.querySelector('table');
 
 class Book {
     constructor(title, author, pages, read) {
@@ -17,13 +18,19 @@ form.addEventListener('submit', addBook);
 function addBook(event) {
     event.preventDefault();
 
+    const row = table.insertRow()
     const elements = form.elements;
-    myLibrary.push(new Book(
+    const book = new Book(
         elements['title'].value,
         elements['author'].value,
         elements['pages'].value,
         elements['status'].checked
-    ))
+    );
 
-    form.reset();
+    row.insertCell().textContent = book.title;
+    row.insertCell().textContent = book.author;
+    row.insertCell().textContent = book.pages;
+    row.insertCell().textContent = book.status ? 'read' : 'not read';
+    
+    // form.reset();
 }
